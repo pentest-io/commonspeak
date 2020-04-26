@@ -15,7 +15,7 @@ directoriestable=${datasetname}.dirs
 filenamestable=${datasetname}.filenames
 
 echo -e "\n* Running query to extract all URLs to $desttable"
-bq query --project_id=$projectname --destination_table=$desttable --allow_large_results "SELECT website_url, count(website_url) as cnt FROM [bigquery-public-data:stackoverflow.users] GROUP BY url ORDER BY cnt DESC;"
+bq query --project_id=$projectname --destination_table=$desttable --allow_large_results "SELECT website_url, count(website_url) as cnt FROM [bigquery-public-data:stackoverflow.users] GROUP BY website_url ORDER BY cnt DESC;"
 
 directoryquery=$(sed -e "s/\${1}/$querytable/" sql/stackoverflow-directories.sql)
 echo -e "\n* Extracting directories from all URLs to $datasetname.urls_directories"

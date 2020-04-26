@@ -13,7 +13,7 @@ desttable=${datasetname}.urls
 querytable=${projectname}.${datasetname}.urls
 
 echo -e "\n* Running query to extract all URLs to $desttable"
-bq query --project_id=$projectname --destination_table=$desttable --allow_large_results "SELECT url, COUNT(url) AS cnt FROM [httparchive:runs.latest_requests] GROUP BY url;"
+bq query --project_id=$projectname --destination_table=$desttable --allow_large_results "SELECT url, COUNT(url) AS cnt FROM [httparchive:latest.summary_requests_desktop] GROUP BY url;"
 
 subdomainquery=$(sed -e "s/\${1}/$querytable/" sql/httparchive-subdomains.sql)
 echo -e "\n* Extracting subdomains from all URLs to $datasetname.urls_subdomains"
