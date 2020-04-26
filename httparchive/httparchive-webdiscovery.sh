@@ -14,7 +14,7 @@ for ext in ${extensions[@]}
 do
 	desttable=$datasetname.$ext
 	echo -e "\n* Running query to extract $ext to table $desttable"
-	bq query --project_id=$projectname --destination_table=$desttable "SELECT url, COUNT(url) AS cnt FROM [httparchive:runs.latest_requests] WHERE ext = '$ext' GROUP BY url ORDER BY cnt DESC;"
+	bq query --project_id=$projectname --destination_table=$desttable "SELECT url, COUNT(url) AS cnt FROM [httparchive:latest.summary_requests_desktop] WHERE ext = '$ext' GROUP BY url ORDER BY cnt DESC;"
 	querytable=$projectname.$datasetname.$ext
 	# extract directories
 	directoryquery=$(sed -e "s/\${1}/$querytable/" sql/httparchive-directories.sql)
